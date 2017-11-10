@@ -20,6 +20,18 @@ gulp.task('pug', function(){
 		.pipe(gulp.dest('./app'));
 });
 
+gulp.task('babel', function(){
+	return gulp.src('./dev/es6/*.js')
+		.pipe(babel({
+			presets: ['env'],
+		}))
+		.pipe(gulp.dest('./app/assets'));
+});
+
+gulp.task('js-sync', ['babel'], function(){
+	browserSync.reload();
+});
+
 gulp.task('default', ['sass' , 'pug'], function(){
 	sync.init({
 		server: "./app"
@@ -27,4 +39,5 @@ gulp.task('default', ['sass' , 'pug'], function(){
 	gulp.watch('app/*.html').on('change', sync.reload);
 	gulp.watch('./dev/views/**/*pug', ['pug']);
 	gulp.watch('./dev/sass/**/*.scss', ['sass']);
+	gulp.watch('./dev/es6/**/*.js', ['js-sync']);
 });
