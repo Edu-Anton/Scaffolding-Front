@@ -6,9 +6,9 @@ var gulp = require('gulp'),
 	sync = require('browser-sync').create();
 
 gulp.task('sass', function(){
-	return gulp.src('./dev/scss/*.scss')
+	return gulp.src('./dev/sass/*.scss')
 		.pipe(sass())
-		.pipe(gulp.dest('./app/css/'))
+		.pipe(gulp.dest('./app/assets/'))
 		.pipe(sync.stream());
 });
 
@@ -26,5 +26,5 @@ gulp.task('default', ['sass' , 'pug'], function(){
 	});
 	gulp.watch('app/*.html').on('change', sync.reload);
 	gulp.watch('./dev/views/**/*pug', ['pug']);
-	gulp.watch('./dev/scss/**/*.scss', ['sass']);
+	gulp.watch('./dev/sass/**/*.scss', ['sass']);
 });
